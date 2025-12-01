@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <div class="col content">
+    <h1>年齢推定結果</h1>
+    {% if gender %}
+    <p>推定{{ age }}歳・{{ gender }}です。</p>
+    {% else %}
+    <p>推定{{ age }}歳です。</p>
+    {% endif %}
+    <p><img src="{{filepath}}"></p>
+    <form method="get" action="/">
+      <button class="submit">戻る</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

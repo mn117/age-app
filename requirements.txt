@@ -1,0 +1,7 @@
+flask
+waitress
+torch
+transformers
+Pillow
+numpy
+huggingface-hub
