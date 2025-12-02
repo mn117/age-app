@@ -39,6 +39,7 @@ def result():
     file.save(filepath)
 
     image = Image.open(filepath).convert("RGB")
+    image = image.resize((224, 224)) 
 
     # age-gender-prediction の helper 関数を使って推定
     result_dict = predict_age_gender(filepath)  # または image object を渡すバージョン
