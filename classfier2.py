@@ -5,14 +5,21 @@ from PIL import Image
 import torch
 
 # モデル用インポート
-from transformers import ViTImageProcessor
-from model import predict_age_gender  # age-gender-prediction の helper 関数
+from transformers import ViTImageProcessor, ViTForImageClassification
+
+# age-gender-prediction の helper 関数を軽量化して使用
+from model import predict_age_gender_light  # ここは軽量化版を用意
+
 
 UPLOAD_FOLDER = "./static/images/"
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+processor = ViTImageProcessor.from_pretrained("google/vit-tiny-patch16-224")
+model = ViTForImageClassification.from_pretrained("google/vit-tiny-patch16-224")
+model.eval()  # 推論モード
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
