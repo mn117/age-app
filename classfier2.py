@@ -8,7 +8,7 @@ import torch
 from transformers import ViTImageProcessor, ViTForImageClassification
 
 # age-gender-prediction の helper 関数を軽量化して使用
-from model import predict_age_gender_light  # ここは軽量化版を用意
+from model import predict_age_gender  # ここは軽量化版を用意
 
 
 UPLOAD_FOLDER = "./static/images/"
@@ -17,9 +17,9 @@ ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-processor = ViTImageProcessor.from_pretrained("google/vit-tiny-patch16-224")
-model = ViTForImageClassification.from_pretrained("google/vit-tiny-patch16-224")
-model.eval()  # 推論モード
+#processor = ViTImageProcessor.from_pretrained("google/vit-tiny-patch16-224")
+#model = ViTForImageClassification.from_pretrained("google/vit-tiny-patch16-224")
+#model.eval()  # 推論モード
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -64,7 +64,8 @@ def result():
         age=age,
         gender=gender_jp,
         gender_confidence=gender_conf,
-        filepath=filepath
+        filepath=filepath,
+        filename=filename
     )
 
 if __name__ == "__main__":
